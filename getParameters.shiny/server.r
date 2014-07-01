@@ -1,10 +1,11 @@
 shinyServer(function(input, output) {
-
-  output$main_plot <- reactivePlot(function() {
-
+  
+  output$main_plot <- renderPlot({
+    if (input$n_breaks == '') bks = 20
+    if (input$n_breaks != '') bks = as.numeric(input$n_breaks)
     hist(faithful$eruptions,
       probability = TRUE,
-      breaks = as.numeric(input$n_breaks),
+      breaks = bks, #as.numeric(input$n_breaks),
       xlab = "Duration (minutes)",
       main = "Geyser eruption duration")
 
